@@ -1,0 +1,11 @@
+*.class
+*.jar
+
+
+.gradle
+build/
+.gradletasknamecache
+
+*.iml
+*/build/
+/.idea/
