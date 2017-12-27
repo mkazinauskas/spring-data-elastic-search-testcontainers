@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: project-elastic-search-api
+  profiles:
+    active: prod
+  data:
+    elasticsearch:
+      properties:
+        path.home: elastic-cluster
+        transport.tcp.connect_timeout: 120s

@@ -9,3 +9,5 @@ build/
 *.iml
 */build/
 /.idea/
+/data/
+/elastic-cluster/

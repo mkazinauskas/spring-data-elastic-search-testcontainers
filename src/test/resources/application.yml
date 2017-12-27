@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: test
+  data:
+    elasticsearch:
+      properties:
+        path.home: build/elastic-cluster
+        transport.tcp.connect_timeout: 120s
