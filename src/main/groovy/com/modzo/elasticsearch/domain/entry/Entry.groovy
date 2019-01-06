@@ -4,10 +4,7 @@ import groovy.transform.PackageScope
 import org.springframework.data.annotation.Id
 import org.springframework.data.elasticsearch.annotations.Document
 import org.springframework.data.elasticsearch.annotations.Field
-import org.springframework.data.elasticsearch.annotations.FieldIndex
 import org.springframework.data.elasticsearch.annotations.FieldType
-
-import static org.apache.commons.lang.RandomStringUtils.randomAlphanumeric
 
 @Document(indexName = 'entry', type = 'entry', refreshInterval = '-1')
 class Entry {
@@ -15,12 +12,12 @@ class Entry {
     @Id
     String id
 
-    private String uniqueId = randomAlphanumeric(40)
+    private String uniqueId = UUID.randomUUID().toString()
 
-    @Field(type = FieldType.String, index = FieldIndex.analyzed)
+    @Field(type = FieldType.Text)
     String name
 
-    @Field(type = FieldType.String, index = FieldIndex.analyzed)
+    @Field(type = FieldType.Text)
     String value
 
     @PackageScope

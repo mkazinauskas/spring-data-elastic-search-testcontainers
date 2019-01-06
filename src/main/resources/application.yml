@@ -5,6 +5,5 @@ spring:
     active: prod
   data:
     elasticsearch:
-      properties:
-        path.home: elastic-cluster
-        transport.tcp.connect_timeout: 120s
+      cluster-nodes: localhost:9200
+      cluster-name: elasticsearch

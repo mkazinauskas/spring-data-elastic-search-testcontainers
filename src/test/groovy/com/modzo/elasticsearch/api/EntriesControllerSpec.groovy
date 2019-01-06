@@ -11,10 +11,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.test.context.ContextConfiguration
+import org.testcontainers.shaded.org.apache.commons.lang.RandomStringUtils
 import spock.lang.Specification
 import spock.lang.Unroll
-
-import static org.apache.commons.lang.RandomStringUtils.randomAlphanumeric as random
 
 @ContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -78,5 +77,9 @@ class EntriesControllerSpec extends Specification {
 //            ''                               | "first${random(10)}second"        | 'first second'
             ''                           | "first ${random(10)} second" | 'first third'
 //            ''                               | "${random(10)}value${random(10)}" | 'value'
+    }
+
+    private static String random(int count) {
+        return RandomStringUtils.randomAlphanumeric(count);
     }
 }
