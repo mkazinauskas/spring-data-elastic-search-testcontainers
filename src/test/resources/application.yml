@@ -3,5 +3,4 @@ spring:
     active: test
   data:
     elasticsearch:
-      cluster-nodes: ${elasticSearchTcpHost}
-      cluster-name: docker-cluster
+      cluster-nodes: dynamic
