@@ -6,7 +6,7 @@ import org.springframework.data.elasticsearch.annotations.Document
 import org.springframework.data.elasticsearch.annotations.Field
 import org.springframework.data.elasticsearch.annotations.FieldType
 
-@Document(indexName = 'entry', type = 'entry', refreshInterval = '-1')
+@Document(indexName = 'entry', indexStoreType = 'entry', refreshInterval = '-1')
 class Entry {
 
     @Id

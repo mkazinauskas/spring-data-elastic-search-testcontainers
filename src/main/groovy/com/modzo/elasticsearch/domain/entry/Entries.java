@@ -1,6 +1,5 @@
 package com.modzo.elasticsearch.domain.entry;
 
-
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import java.util.List;

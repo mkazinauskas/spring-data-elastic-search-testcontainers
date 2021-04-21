@@ -8,15 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
-import static org.springframework.hateoas.core.DummyInvocationUtils.methodOn;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping(value = "/entries")
@@ -29,16 +29,18 @@ public class EntriesController {
     private EntryBeanMapper mapper;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Resource<Page<EntryBean>>> entries(Pageable pageable) {
+    public ResponseEntity<EntityModel<Page<EntryBean>>> entries(Pageable pageable) {
         Page<Entry> foundEntries = entries.findAll(pageable);
-        return ResponseEntity.ok(new Resource<>(
-                foundEntries.map(mapper::map),
-                linkTo(methodOn(EntriesController.class).entries(null)).withSelfRel()
-        ));
+        return ResponseEntity.ok(
+                EntityModel.of(
+                        foundEntries.map(mapper::map),
+                        linkTo(methodOn(EntriesController.class).entries(null)).withSelfRel()
+                )
+        );
     }
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
-    public ResponseEntity<Resource<Page<EntryBean>>> searchEntries(
+    public ResponseEntity<EntityModel<Page<EntryBean>>> searchEntries(
             @Param(value = "query") String query,
             Pageable pageable
     ) {
@@ -48,10 +50,12 @@ public class EntriesController {
                         .should(QueryBuilders.queryStringQuery(query).field("value"));
 
         Page<Entry> foundEntries = entries.search(builder, pageable);
-        return ResponseEntity.ok(new Resource<>(
-                foundEntries.map(mapper::map),
-                linkTo(methodOn(EntriesController.class).entries(null)).withSelfRel()
-        ));
+        return ResponseEntity.ok(
+                EntityModel.of(
+                        foundEntries.map(mapper::map),
+                        linkTo(methodOn(EntriesController.class).entries(null)).withSelfRel()
+                )
+        );
     }
 
 }
