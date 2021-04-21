@@ -11,14 +11,13 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.modzo'
 version = '1.0'
-sourceCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
