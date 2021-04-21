@@ -24,9 +24,9 @@ repositories {
 }
 
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
-    compile 'org.springframework.boot:spring-boot-starter-hateoas'
-    compile 'org.codehaus.groovy:groovy-all:2.4.7'
+    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+    implementation 'org.codehaus.groovy:groovy-all:2.4.7'
     runtime 'net.java.dev.jna:jna'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
