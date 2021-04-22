@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  elastic-search:
+    image: elasticsearch:7.9.3
+    environment:
+      discovery.type: single-node
+      network.host: _site_
+      network.publish_host: _local_
+      cluster.name: elastic_search_sample
+    ports:
+      - "9301:9300"
+      - "9201:9200"
+    volumes:
+      - "elastic_search:/usr/share/elasticsearch/data"
+
+volumes:
+  elastic_search:
+    driver: local

@@ -26,14 +26,14 @@ class EntriesControllerSpec extends IntegrationSpec {
 
     void 'should find entries'() {
         given:
-            String uniqueId = createEntryHandler.handle(new CreateEntry(name: 'random name', value: 'random value'))
+            String uniqueId = createEntryHandler.handle(new CreateEntry('random name', 'random value'))
         when:
             ResponseEntity<String> response = restTemplate.getForEntity('/entries', String)
         then:
             response.statusCode == HttpStatus.OK
         and:
             def body = new JsonSlurper().parseText(response.body)
-            def item = body.content.find { it.uniqueId == uniqueId }
+            def item = body._embedded.entryBeanList.find { it.uniqueId == uniqueId }
             item.name == 'random name'
             item.value == 'random value'
         cleanup:
@@ -59,20 +59,12 @@ class EntriesControllerSpec extends IntegrationSpec {
             name                         | value                        | query
             "name ${random(10)}"         | ''                           | 'name'
             "${random(10)} name"         | ''                           | 'name'
-//            "name${random(10)}"              | ''                                | 'name'
-//            "${random(10)}name"              | ''                                | 'name'
             "first ${random(10)} second" | ''                           | 'first second'
-//            "first${random(10)}second"       | ''                                | 'first second'
             "first ${random(10)} second" | ''                           | 'first third'
-//            "${random(10)}name${random(10)}" | ''                                | 'name'
             ''                           | "value ${random(10)}"        | 'value'
             ''                           | "${random(10)} value"        | 'value'
-//            ''                               | "value${random(10)}"              | 'value'
-//            ''                               | "${random(10)}value"              | 'value'
             ''                           | "first ${random(10)} second" | 'first second'
-//            ''                               | "first${random(10)}second"        | 'first second'
             ''                           | "first ${random(10)} second" | 'first third'
-//            ''                               | "${random(10)}value${random(10)}" | 'value'
     }
 
     private static String random(int count) {

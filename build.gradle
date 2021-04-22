@@ -6,6 +6,7 @@ plugins {
 
 ext {
     testContainersVersion = '1.15.3'
+    set('springCloudVersion', "2020.0.2")
 }
 
 group = 'com.modzo'
@@ -30,4 +31,10 @@ dependencies {
 
     testImplementation "org.testcontainers:spock:${testContainersVersion}"
     testImplementation "org.testcontainers:elasticsearch:${testContainersVersion}"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
